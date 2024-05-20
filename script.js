@@ -66,3 +66,51 @@ auth.onAuthStateChanged((user) => {
     console.log("No user is signed in");
   }
 });
+
+function addContent() {
+  const content = document.getElementById("content-input").value;
+  const user = auth.currentUser;
+
+  if (user) {
+    db.collection("content")
+      .add({
+        uid: user.uid,
+        content: content,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        console.log("Content added");
+        document.getElementById("content-input").value = "";
+        loadContent(); // Reload content after adding new one
+      })
+      .catch((error) => {
+        console.error("Error adding content:", error);
+      });
+  } else {
+    console.error("No user signed in");
+  }
+}
+
+// Load content function
+function loadContent() {
+  const contentList = document.getElementById("content-list");
+  contentList.innerHTML = "";
+  db.collection("content")
+    .orderBy("timestamp", "desc" /* what is desc? */)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const contentItem = document.createElement("div");
+        contentItem.textContent = data.content;
+        contentList.appendChild(contentItem);
+      });
+    })
+    .catch((error) => {
+      console.error("Error loading content:", error);
+    });
+}
+
+window.onload = function () {
+  loadContent();
+};

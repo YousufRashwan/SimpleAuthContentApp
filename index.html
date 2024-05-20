@@ -24,9 +24,17 @@
         <input type="password" id="login-password" placeholder="Password" />
         <button onclick="login()">Login</button>
       </div>
+      <div id="content-container">
+        <h2>Add content</h2>
+        <textarea
+          id="content-input"
+          placeholder="Enter your content"
+        ></textarea>
+        <button onclick="addContent()">Add Content</button>
+        <div id="content-list"></div>
+      </div>
       <button onclick="logout()">Logout</button>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>
