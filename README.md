@@ -74,7 +74,3 @@ For questions or feedback, contact:
 - Your Name
 - Your Email
 - Your GitHub Profile
-
----
-
-This should give anyone looking at your repo a clear understanding of what the project does and how to get it running without being too formal.
